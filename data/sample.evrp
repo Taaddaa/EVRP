@@ -1,0 +1,19 @@
+# EVRP instance: sample
+# Small handcrafted instance for smoke-testing the solver.
+#
+# 5 customers, 2 charging stations, 3 vehicles.
+# Depot at origin; nodes scattered on a 60x60 grid.
+n_customers 5
+n_stations  2
+n_vehicles  3
+max_load    100
+battery_capacity 60
+consumption_rate 1
+0 depot              0   0
+1 customer          10  20  20
+2 customer          30  10  30
+3 customer          20  40  15
+4 customer          50  30  25
+5 customer          40  50  10
+6 charging_station  15  35
+7 charging_station  45  15
