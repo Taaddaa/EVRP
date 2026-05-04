@@ -157,9 +157,10 @@ function insert_charging_stops_WO_CH(
     return new_route, cum_time, feasible
 end
 
-
 function charger_local_search(
-    alns_solution   ::Solution,
+    t0          ::Float64,
+    snaps:: Vector{Snapshot},
+    alns_sol   ::Solution,
     initial_stations::Vector{Int},
     dist            ::Matrix{Float64},
     params          ::Params;
@@ -172,10 +173,10 @@ function charger_local_search(
     # Evaluate initial placement
     best_stations = copy(initial_stations)
     # best_sol      = evaluate_stations(best_stations, dist, params)
-    best_sol      = alns_solution
+    best_sol      = alns_sol
     if verbose
         println("\n" * "=" ^ 55)
-        println("  SECTION 6C — Charger Local Search")
+        println("Charger Local Search")
         println("=" ^ 55)
         @printf("  Initial stations: %s\n", string(best_stations .- 1))
         @printf("  Initial result:   %d vehicles | %.2f km\n",
@@ -209,6 +210,9 @@ function charger_local_search(
                     best_stations = new_stations
                     best_sol      = new_sol
                     improved      = true
+                    push!(snaps, Snapshot(elapsed(t0), "Charger local Search:" *@sprintf("  Iter %2d: swap C%d→C%d",
+                                iter,
+                                station-1, candidate-1) ,best_sol))
 
                     if verbose
                         @printf("  Iter %2d: swap C%d→C%d | %d veh | %.2f km ✓\n",
@@ -231,7 +235,7 @@ function charger_local_search(
         println("=" ^ 55)
     end
 
-    return best_stations, best_sol
+    return snaps,best_stations, best_sol
 end
 
 function evaluate_stations(

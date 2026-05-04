@@ -24,7 +24,7 @@ function set_problem(;
     charge_time  = 30.0
     )
     max_iter     = 10000
-    reduced_iter   = 500
+    reduced_iter   = 200
     worse_accept = 0.05     # 5% worse solution accepted at start
     accept_prob  = 0.50     # with 50% probability at start
     n_customers  = 98
@@ -134,21 +134,30 @@ function print_solution(
     @printf("  Stations used:  %s\n",      string(stations .- 1))  # show as customer numbers
     println("=" ^ 55)
 end
-function initial_charger_print(initial_stations::Vector{Int}, params::Params)
-    # Sort customers by score descending
-    # Only consider customer indices (2..99)
-    candidates = collect(2:params.n_customers+1)
-    println("\n" * "=" ^ 55)
-    println("  SECTION 6A — Initial Charger Placement")
-    println("=" ^ 55)
-    println("  Violation scores (top 10 candidates):")
-    for c in candidates[1:10]
-        @printf("    Customer %2d (idx %2d): score = %.1f\n",
-                c-1, c, scores[c])
-    end
-    @printf("\n  Selected stations (customer indices): %s\n",
-            string(initial_stations .- 1))
-    println("=" ^ 55)
 
-    # return initial_stations
+ function initial_charger_print(initial_stations::Vector{Int}, params::Params)
+        println("=" ^ 55)
+        @printf("\n  Selected initial stations (customer indices): %s\n",
+                string(initial_stations .- 1))
+        println("=" ^ 55)
+ end
+ function print_routes(routes::Vector{Vector{Int}}, label::String = "Initial routes from Clarke-Wright (with dummy stations)")
+     println("\n" * "=" ^ 55)
+     println("  $label")
+     println("=" ^ 55)
+     for (i, route) in enumerate(routes)
+         n_customers = count(x -> x != 1, route)
+         println("Route $i ($n_customers customers): $(join(route, " → "))")
+     end
+     println("=" ^ 55)
+     println("Total routes: $(length(routes))")
+    println(label)
+    println("="^50)
+    for (i, route) in enumerate(routes)
+        # Exclude depot (node 1) from customer count
+        n_customers = count(x -> x != 1, route)
+        println("Route $i ($n_customers customers): $(join(route, " → "))")
+    end
+    println("="^50)
+    println("Total routes: $(length(routes))")
 end

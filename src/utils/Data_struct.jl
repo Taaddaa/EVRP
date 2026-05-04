@@ -23,6 +23,7 @@ struct Params
     T_start      ::Float64
     T_end        ::Float64
     cooling_rate ::Float64
+    
 end
 
 struct Saving
@@ -64,4 +65,10 @@ mutable struct WeightManager
     sigma1 ::Float64    # new global best
     sigma2 ::Float64    # better than current
     sigma3 ::Float64    # accepted not better
+end
+
+struct Snapshot
+    elapsed_sec  ::Float64          # wall-clock time since pipeline start
+    stage_label  ::String           
+    sol       :: Solution  
 end

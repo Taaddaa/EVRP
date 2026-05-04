@@ -143,3 +143,7 @@ function select_operator(weights::Vector{Float64})
     end
     return length(weights)
 end
+
+function elapsed(t0)
+    return time() - t0
+end

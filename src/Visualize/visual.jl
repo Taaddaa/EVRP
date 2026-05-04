@@ -137,25 +137,26 @@
 # test_stations = [5, 20, 40, 60, 80]
 # visualize_solution(cw_routes, test_stations, locations, dist, params,
 #                    label = "Clarke-Wright Solution (6 vehicles, dummy stations)")
-
-
-
-
-
+ 
 
 # ============================================================
 #  SECTION 4B: VISUALIZATION
 # ============================================================
-
-using Plots
-
+#best_stations= [75, 63, 10, 45, 9]
+# visualize_solution(
+#     routes   ::Vector{Vector{Int}},
+#     best_stations ::Vector{Int},
+#     locations::Matrix{Float64},
+#     dist     ::Matrix{Float64},
+#     params   ::Params;
+# )
 function visualize_solution(
     routes   ::Vector{Vector{Int}},
     stations ::Vector{Int},
     locations::Matrix{Float64},
     dist     ::Matrix{Float64},
     params   ::Params;
-    label    ::String = "Solution",
+    label    ::String = "Final_Solution",
     filename ::String = "evrp_solution.png"
 )
     # Color palette for routes

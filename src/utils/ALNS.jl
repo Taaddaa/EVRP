@@ -35,7 +35,7 @@ function alns(
 
     if verbose
         println("\n" * "=" ^ 55)
-        println("  SECTION 5 — ALNS")
+        println(" ALNS - Improving Routes")
         println("=" ^ 55)
         @printf("  Initial: %d vehicles | cost: %.2f\n",
                 current.n_vehicles, current.cost)
@@ -141,7 +141,7 @@ function alns_WO_CH(
         alns_iter = params.max_iter
         segment_size = params.segment_size
     end
-    stations=[1,2,3,4,5].+1
+    stations=collect(2:params.n_customers+1) # Dummy stations for WO_CH ALNS
     
     # ── Initialize ──
     current = make_solution(initial_routes, stations, dist, params)
@@ -164,7 +164,7 @@ function alns_WO_CH(
 
     if verbose
         println("\n" * "=" ^ 55)
-        println("  SECTION 5 — ALNS")
+        println(" ALNS for Initial Solution (Without Charger Insertion)")
         println("=" ^ 55)
         @printf("  Initial: %d vehicles | cost: %.2f\n",
                 current.n_vehicles, current.cost)
@@ -247,7 +247,7 @@ function alns_WO_CH(
 
     if verbose
         println("-" ^ 55)
-        @printf("  FINAL: %d vehicles | dist: %.2f km\n",
+        @printf("  FINAL Solution - ALNS Without Charger Insertion: %d vehicles | dist: %.2f km\n",
                 best.n_vehicles, best.total_dist)
         println("=" ^ 55)
     end
