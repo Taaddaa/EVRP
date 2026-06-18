@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evrp"
+version = "0.1.0"
+description = "Algorithm for Basic Electric Vehicle Routing Problem"
+requires-python = ">=3.8"
+license = "MIT"
+readme = "README.md"
+
+[tool.setuptools.packages.find]
+include = ["evrp*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
